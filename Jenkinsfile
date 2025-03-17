@@ -2,28 +2,29 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
-                script {
-                    sh 'npm ci'
-                }
+                sh 'npm install'
             }
         }
 
         stage('Start Application') {
             steps {
-                script {
-                    sh 'npm run start &'
-                }
+                sh 'npm run start &'
             }
         }
 
         stage('Run Tests') {
             steps {
-                script {
-                    sh 'npm run test'
-                }
+                sh 'npm test'
             }
         }
     }
 }
+
